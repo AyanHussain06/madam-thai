@@ -267,6 +267,27 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
 .sheet.wide { width: min(560px, 100%); }
 #sharePreview { display: flex; justify-content: center; }
 .shareimg { display: block; max-width: 100%; height: auto; border-radius: 14px; box-shadow: var(--shadow); }
+.srow { border-bottom: 1px solid var(--line); }
+.srow:first-child { border-top: 1px solid var(--line); }
+.smain { display: flex; flex-direction: column; gap: 6px; width: 100%; padding: 12px 0; border: 0; background: none; text-align: left; color: inherit; }
+.sline { display: flex; align-items: baseline; gap: 10px; }
+.srank { flex: none; width: 22px; color: var(--muted); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; }
+.sname { flex: 1; min-width: 0; font-weight: 700; font-size: 16px; overflow-wrap: anywhere; }
+.sunits { flex: none; font-weight: 800; font-variant-numeric: tabular-nums; }
+.strack { display: block; height: 12px; margin-left: 32px; border-radius: 999px; background: var(--tint); overflow: hidden; }
+.sfill { display: block; height: 100%; min-width: 4px; border-radius: 999px; background: var(--accent); }
+.smeta { margin-left: 32px; color: var(--muted); font-size: 13px; }
+.smain:hover .sname { text-decoration: underline; text-underline-offset: 3px; }
+.strend { margin: 0 0 14px 32px; padding: 12px; border-radius: 16px; background: var(--tint); }
+.strend h3, .schart h3 { margin: 0 0 8px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.cols { display: flex; align-items: flex-end; gap: 6px; height: 120px; }
+.col { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; border: 0; background: none; padding: 0; color: inherit; font-size: 11px; }
+.col .cv { font-weight: 700; font-variant-numeric: tabular-nums; }
+.col .cb { width: 100%; max-width: 34px; border-radius: 6px 6px 2px 2px; background: var(--muted); opacity: .45; min-height: 2px; }
+.col.on .cb, .strend .col .cb { background: var(--accent); opacity: 1; }
+.col .cl { color: var(--muted); white-space: nowrap; }
+button.col:hover .cb { opacity: 1; }
+.schart { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
 .hint-line { margin: 0; color: var(--muted); font-size: 15px; }
 
 .brow { display: grid; grid-template-columns: 44px minmax(0, 1fr) 36px; gap: 8px 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
@@ -538,6 +559,21 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
     </div>
   </div>
 </div>
+<div class="scrim" id="salesScrim" hidden>
+  <div class="sheet wide" role="dialog" aria-modal="true" aria-labelledby="salesTitle">
+    <div class="sheet-head">
+      <h2 id="salesTitle">Sales by product</h2>
+      <button class="x" type="button" data-act="close" aria-label="Close">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <label class="lbl" for="salesMonth">Month
+        <select class="field" id="salesMonth"></select>
+      </label>
+      <p class="hint-line" id="salesSummary"></p>
+      <div id="salesBody"></div>
+    </div>
+  </div>
+</div>
 <div id="printArea" aria-hidden="true"></div>
 <button class="btn primary fab" type="button" data-act="add" id="fab" hidden>+ Add a product</button>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -684,7 +720,17 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
       bills: {
         list: async function () { return ok(await sb.from('bills').select('*').order('created_at', { ascending: false }).limit(200)); },
         insert: async function (row) { return ok(await sb.from('bills').insert(row).select().single()); },
-        remove: async function (id) { ok(await sb.from('bills').delete().eq('id', id)); }
+        remove: async function (id) { ok(await sb.from('bills').delete().eq('id', id)); },
+        all: async function () {
+          var out = [], from = 0;
+          for (;;) {
+            var r = ok(await sb.from('bills').select('bill_date,items').order('bill_date', { ascending: false }).range(from, from + 999));
+            out = out.concat(r || []);
+            if (!r || r.length < 1000) break;
+            from += 1000;
+          }
+          return out;
+        }
       },
       insert: async function (row) { return ok(await sb.from('products').insert(row).select().single()); },
       update: async function (id, row) { return ok(await sb.from('products').update(row).eq('id', id).select().single()); },
@@ -740,7 +786,8 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
           var r = Object.assign({ id: 'b' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), created_at: new Date().toISOString() }, row);
           bdata.push(r); bsave(); return r;
         },
-        remove: async function (id) { bdata = bdata.filter(function (x) { return x.id !== id; }); bsave(); }
+        remove: async function (id) { bdata = bdata.filter(function (x) { return x.id !== id; }); bsave(); },
+        all: async function () { return bdata.slice(); }
       },
       live: false,
       maxImageSide: 520,
@@ -864,7 +911,8 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
     var h = '';
     if (api.live) {
       if (user) {
-        h += '<button class="btn" type="button" data-act="bills">Bills</button>' +
+        h += '<button class="btn" type="button" data-act="sales">Sales</button>' +
+          '<button class="btn" type="button" data-act="bills">Bills</button>' +
           '<button class="btn primary add-top" type="button" data-act="add">Add a product</button>' +
           '<span class="acct"><button class="avatar" type="button" data-act="acct" aria-label="Account" aria-haspopup="true" aria-expanded="false">' +
           '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="8.5" r="4" fill="currentColor"/><path d="M4 21c0-4.2 3.6-7 8-7s8 2.8 8 7z" fill="currentColor"/></svg></button>' +
@@ -874,7 +922,8 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
         h += '<button class="btn" type="button" data-act="login">Staff sign in</button>';
       }
     } else {
-      h += '<button class="btn" type="button" data-act="bills">Bills</button>' +
+      h += '<button class="btn" type="button" data-act="sales">Sales</button>' +
+        '<button class="btn" type="button" data-act="bills">Bills</button>' +
         '<button class="btn primary add-top" type="button" data-act="add">Add a product</button>';
     }
     $('#headActions').innerHTML = h;
@@ -1085,6 +1134,7 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
     $('#shareScrim').hidden = true;
     $('#billScrim').hidden = true;
     $('#billsScrim').hidden = true;
+    $('#salesScrim').hidden = true;
     dropOut();
     clearPhotoUrl();
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
@@ -1756,6 +1806,107 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
     catch (e) { billsData = []; billsError = isMissingTable(e) ? 'missing' : ((e && e.message) || 'Unknown error'); }
     renderBills();
   }
+  /* ---------- sales by product (built from the saved bills) ---------- */
+  var salesRows = [], salesErr = '', salesMonth = 'all', salesOpen = '';
+  function mKey(s) { return String(s || '').slice(0, 7); }
+  function mLabel(k, short) {
+    var p = k.split('-'), d = new Date(+p[0], +p[1] - 1, 1);
+    return d.toLocaleDateString('en-IN', short ? { month: 'short' } : { month: 'long', year: 'numeric' });
+  }
+  function shiftMonth(k, n) {
+    var p = k.split('-'), d = new Date(+p[0], +p[1] - 1 + n, 1);
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  }
+  function salesTotals(month) {
+    var m = {}, bills = 0;
+    salesRows.forEach(function (r) {
+      if (month !== 'all' && mKey(r.bill_date) !== month) return;
+      bills++;
+      (Array.isArray(r.items) ? r.items : []).forEach(function (l) {
+        var key = String(l.name || '').trim().toLowerCase();
+        if (!key) return;
+        var o = m[key] || (m[key] = { key: key, name: String(l.name).trim(), units: 0, rev: 0 });
+        o.units += +l.qty || 0; o.rev += +l.amount || 0;
+      });
+    });
+    var list = Object.keys(m).map(function (k) { return m[k]; })
+      .sort(function (a, b) { return b.units - a.units || b.rev - a.rev || a.name.localeCompare(b.name); });
+    return { list: list, bills: bills };
+  }
+  function colsHtml(items, max, clickable, onKey) {
+    return '<div class="cols">' + items.map(function (c) {
+      var h = max ? Math.max(2, Math.round(c.v / max * 78)) : 2;
+      var inner = '<span class="cv">' + (c.v ? numFmt.format(c.v) : '') + '</span><span class="cb" style="height:' + h + 'px"></span><span class="cl">' + esc(c.label) + '</span>';
+      return clickable
+        ? '<button type="button" class="col' + (c.k === onKey ? ' on' : '') + '" data-sact="month" data-k="' + c.k + '" aria-label="' + esc(c.label + ': ' + c.v + ' sold') + '">' + inner + '</button>'
+        : '<div class="col" role="img" aria-label="' + esc(c.label + ': ' + c.v + ' sold') + '">' + inner + '</div>';
+    }).join('') + '</div>';
+  }
+  function fillMonths() {
+    var seen = {}; salesRows.forEach(function (r) { if (mKey(r.bill_date)) seen[mKey(r.bill_date)] = 1; });
+    var now = new Date(), cur = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+    seen[cur] = 1;
+    var keys = Object.keys(seen).sort().reverse();
+    $('#salesMonth').innerHTML = '<option value="all">All time</option>' + keys.map(function (k) { return '<option value="' + k + '">' + esc(mLabel(k)) + '</option>'; }).join('');
+    var has = {}; salesRows.forEach(function (r) { has[mKey(r.bill_date)] = 1; });
+    salesMonth = has[cur] ? cur : (keys.filter(function (k) { return has[k]; })[0] || 'all');
+    $('#salesMonth').value = salesMonth;
+  }
+  function renderSales() {
+    var body = $('#salesBody'), sum = $('#salesSummary');
+    if (salesErr === 'missing') { sum.textContent = ''; body.innerHTML = '<p class="hint-line">Bill history isn’t set up in Supabase yet, so there are no sales to show. Run add-bills.sql once, then open Sales again.</p>'; return; }
+    if (salesErr) { sum.textContent = ''; body.innerHTML = '<p class="hint-line">Couldn’t load sales: ' + esc(salesErr) + '</p>'; return; }
+    if (!salesRows.length) { sum.textContent = ''; body.innerHTML = '<p class="hint-line">No sales yet. Make a bill and it will show up here.</p>'; return; }
+    var t = salesTotals(salesMonth), top = t.list.slice(0, 10);
+    var units = t.list.reduce(function (a, o) { return a + o.units; }, 0), rev = t.list.reduce(function (a, o) { return a + o.rev; }, 0);
+    var when = salesMonth === 'all' ? 'across all months' : 'in ' + mLabel(salesMonth);
+    sum.textContent = t.bills ? numFmt.format(units) + ' units sold ' + when + ' · ' + money0.format(rev) + ' · ' + plural(t.bills, 'bill', 'bills') : '';
+    var html = '';
+    if (!top.length) html += '<p class="hint-line">No bills in ' + esc(salesMonth === 'all' ? 'this period' : mLabel(salesMonth)) + '.</p>';
+    else {
+      var max = top[0].units || 1;
+      html += '<h3 class="sr-only-h sr">Top ' + top.length + ' products</h3>';
+      html += top.map(function (o, i) {
+        var open = salesOpen === o.key, trend = '';
+        if (open) {
+          var end = salesMonth === 'all' ? (salesRows.map(function (r) { return mKey(r.bill_date); }).sort().pop() || '') : salesMonth;
+          var ms = []; for (var n = 5; n >= 0; n--) ms.push(shiftMonth(end, -n));
+          var per = {}; salesRows.forEach(function (r) { (Array.isArray(r.items) ? r.items : []).forEach(function (l) { if (String(l.name || '').trim().toLowerCase() === o.key) per[mKey(r.bill_date)] = (per[mKey(r.bill_date)] || 0) + (+l.qty || 0); }); });
+          var cs = ms.map(function (k) { return { k: k, v: per[k] || 0, label: mLabel(k, true) }; });
+          trend = '<div class="strend"><h3>' + esc(o.name) + ' · units sold, last 6 months</h3>' + colsHtml(cs, Math.max.apply(null, cs.map(function (c) { return c.v; })), false) + '</div>';
+        }
+        return '<div class="srow"><button type="button" class="smain" data-sact="trend" data-k="' + esc(o.key) + '" aria-expanded="' + open + '">' +
+          '<span class="sline"><span class="srank">' + (i + 1) + '</span><span class="sname">' + esc(o.name) + '</span><span class="sunits">' + numFmt.format(o.units) + ' sold</span></span>' +
+          '<span class="strack"><span class="sfill" style="width:' + Math.max(1, Math.round(o.units / max * 100)) + '%"></span></span>' +
+          '<span class="smeta">' + money0.format(o.rev) + ' billed</span></button>' + trend + '</div>';
+      }).join('');
+      if (t.list.length > 10) html += '<p class="hint-line" style="margin-top:10px">Showing the top 10 of ' + t.list.length + ' products sold.</p>';
+    }
+    var last = salesRows.map(function (r) { return mKey(r.bill_date); }).sort().pop() || '', now = new Date();
+    var endM = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0'); if (last > endM) endM = last;
+    var tot = {}; salesRows.forEach(function (r) { (Array.isArray(r.items) ? r.items : []).forEach(function (l) { tot[mKey(r.bill_date)] = (tot[mKey(r.bill_date)] || 0) + (+l.qty || 0); }); });
+    var ms2 = []; for (var z = 11; z >= 0; z--) ms2.push(shiftMonth(endM, -z));
+    var cs2 = ms2.map(function (k) { return { k: k, v: tot[k] || 0, label: mLabel(k, true) }; });
+    html += '<div class="schart"><h3>All products, units sold each month (tap a month)</h3>' + colsHtml(cs2, Math.max.apply(null, cs2.map(function (c) { return c.v; })), true, salesMonth) + '</div>';
+    html += '<p class="hint-line" style="margin-top:14px">Counted from saved bills, matched by product name. Tap a product to see its last 6 months.</p>';
+    body.innerHTML = html;
+  }
+  async function openSales() {
+    if (!canEdit()) return;
+    salesErr = ''; salesOpen = ''; salesRows = [];
+    $('#salesSummary').textContent = '';
+    $('#salesBody').innerHTML = '<p class="hint-line">Loading…</p>';
+    openSheet('#salesScrim', '#salesMonth');
+    try { salesRows = await api.bills.all(); }
+    catch (e) { salesRows = []; salesErr = isMissingTable(e) ? 'missing' : ((e && e.message) || 'Unknown error'); }
+    fillMonths(); renderSales();
+  }
+  $('#salesMonth').addEventListener('change', function (e) { salesMonth = e.target.value; salesOpen = ''; renderSales(); });
+  $('#salesBody').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-sact]'); if (!b) return;
+    if (b.dataset.sact === 'trend') { salesOpen = salesOpen === b.dataset.k ? '' : b.dataset.k; renderSales(); }
+    else if (b.dataset.sact === 'month') { salesMonth = b.dataset.k; if (![].some.call($('#salesMonth').options, function (o) { return o.value === salesMonth; })) salesMonth = 'all'; $('#salesMonth').value = salesMonth; salesOpen = ''; renderSales(); }
+  });
   async function openPastBill(id) {
     var r = billsData.find(function (x) { return x.id === id; });
     if (!r) return;
@@ -1829,12 +1980,13 @@ body.has-bar .toast { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
     else if (act === 'share') shareOut();
     else if (act === 'print') window.print();
     else if (act === 'bills') openBills();
+    else if (act === 'sales') openSales();
   });
-  ['#scrim', '#loginScrim', '#shareScrim', '#billScrim', '#billsScrim'].forEach(function (s) {
+  ['#scrim', '#loginScrim', '#shareScrim', '#billScrim', '#billsScrim', '#salesScrim'].forEach(function (s) {
     $(s).addEventListener('mousedown', function (e) { if (e.target === $(s)) closeTop(); });
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && ['#scrim', '#loginScrim', '#shareScrim', '#billScrim', '#billsScrim'].some(function (s) { return !$(s).hidden; })) closeTop();
+    if (e.key === 'Escape' && ['#scrim', '#loginScrim', '#shareScrim', '#billScrim', '#billsScrim', '#salesScrim'].some(function (s) { return !$(s).hidden; })) closeTop();
   });
   $('#q').addEventListener('input', function (e) { state.q = e.target.value.trim(); render(); });
   $('#sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
