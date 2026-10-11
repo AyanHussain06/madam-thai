@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madam Thai</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23c8261e'/%3E%3Cpath d='M8 12l8-4 8 4v9l-8 4-8-4z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M8 12l8 4 8-4M16 16v9' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('stockroom-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700;800&display=swap">
+<style>
+/* Day is cream, white, black, grey and red. Night is black with cream text. Night follows the device setting until someone picks one with the switch. */
+:root {
+  --bg: #f3ede1;
+  --surface: #ffffff;
+  --fg: #161616;
+  --muted: #6a6862;
+  --line: #ddd5c5;
+  --line-strong: #c4bcab;
+  --field: #f6f1e7;
+  --hover: #f6f1e7;
+  --tint: #efe7d6;
+  --accent: #c8261e;
+  --accent-fg: #ffffff;
+  --tag: #ece4d3;
+  --tag-fg: #2b2823;
+  --soon-bg: #f7d5d1;
+  --soon-fg: #8a1912;
+  --exp-bg: #c8261e;
+  --exp-fg: #ffffff;
+  --none-bg: #e7e5e0;
+  --none-fg: #55524c;
+  --bar: #161616;
+  --bar-fg: #f3ede1;
+  --bar-btn: #f3ede1;
+  --bar-btn-fg: #161616;
+  --warn: #8a1912;
+  --warn-bg: #f7d5d1;
+  --danger: #b3261e;
+  --danger-bg: #f2c4bf;
+  --shadow: 0 1px 2px rgba(30, 20, 10, 0.06), 0 10px 22px rgba(30, 20, 10, 0.12), 0 26px 48px rgba(30, 20, 10, 0.1);
+  --shadow-lift: 0 2px 4px rgba(30, 20, 10, 0.08), 0 16px 32px rgba(30, 20, 10, 0.16), 0 34px 60px rgba(30, 20, 10, 0.14);
+  --scrim: rgba(15, 12, 10, 0.5);
+  --font: 'Karla', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f0f0f;
+    --surface: #1c1c1c;
+    --fg: #f3ede1;
+    --muted: #a3a09a;
+    --line: #2f2e2b;
+    --line-strong: #454440;
+    --field: #262624;
+    --hover: #262624;
+    --tint: #272521;
+    --accent: #e5483f;
+    --accent-fg: #1a0504;
+    --tag: #2d2b27;
+    --tag-fg: #eee6d6;
+    --soon-bg: #4a1f1c;
+    --soon-fg: #ffb9b3;
+    --exp-bg: #e5483f;
+    --exp-fg: #1a0504;
+    --none-bg: #333330;
+    --none-fg: #bdbab3;
+    --bar: #f3ede1;
+    --bar-fg: #161616;
+    --bar-btn: #161616;
+    --bar-btn-fg: #f3ede1;
+    --warn: #ffb9b3;
+    --warn-bg: #3a1b19;
+    --danger: #ff9a91;
+    --danger-bg: #4f1e1b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 28px rgba(0, 0, 0, 0.55), 0 28px 56px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 18px 36px rgba(0, 0, 0, 0.65), 0 38px 68px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    --scrim: rgba(0, 0, 0, 0.66);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f0f0f;
+  --surface: #1c1c1c;
+  --fg: #f3ede1;
+  --muted: #a3a09a;
+  --line: #2f2e2b;
+  --line-strong: #454440;
+  --field: #262624;
+  --hover: #262624;
+  --tint: #272521;
+  --accent: #e5483f;
+  --accent-fg: #1a0504;
+  --tag: #2d2b27;
+  --tag-fg: #eee6d6;
+  --soon-bg: #4a1f1c;
+  --soon-fg: #ffb9b3;
+  --exp-bg: #e5483f;
+  --exp-fg: #1a0504;
+  --none-bg: #333330;
+  --none-fg: #bdbab3;
+  --bar: #f3ede1;
+  --bar-fg: #161616;
+  --bar-btn: #161616;
+  --bar-btn-fg: #f3ede1;
+  --warn: #ffb9b3;
+  --warn-bg: #3a1b19;
+  --danger: #ff9a91;
+  --danger-bg: #4f1e1b;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 28px rgba(0, 0, 0, 0.55), 0 28px 56px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 18px 36px rgba(0, 0, 0, 0.65), 0 38px 68px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --scrim: rgba(0, 0, 0, 0.66);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.5 var(--font);
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+.page { max-width: 1080px; margin-inline: auto; padding-block: 32px 80px; display: flex; flex-direction: column; gap: 22px; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+[hidden] { display: none !important; }
+
+/* top */
+.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; }
+h1 { margin: 0; font: 800 34px/1.1 var(--font); letter-spacing: -0.02em; }
+.sub { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+.head-right { display: flex; align-items: center; gap: 12px 16px; flex-wrap: wrap; }
+.head-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.who { color: var(--muted); font-size: 15px; overflow-wrap: anywhere; }
+
+.theme { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.theme button { border: 0; background: transparent; padding: 6px 14px; border-radius: 999px; color: var(--muted); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+.theme button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); font-weight: 700; }
+.theme svg { width: 15px; height: 15px; flex: none; }
+
+.btn { height: 44px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.btn.primary:hover { filter: brightness(1.06); }
+.btn[disabled] { opacity: 0.55; cursor: default; }
+.link { background: none; border: 0; padding: 4px 2px; color: var(--accent); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+.link:hover { text-decoration-thickness: 2px; }
+.link.quiet { color: var(--muted); }
+.link.danger:hover, .link.confirm { color: var(--danger); }
+.link.confirm { font-weight: 700; }
+
+.banner { margin: 0; padding: 11px 16px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; }
+
+/* summary */
+.summary { margin: 0; font-size: 19px; line-height: 1.55; max-width: 62ch; }
+.summary strong { font-weight: 700; }
+.callout { display: flex; align-items: center; gap: 8px 14px; flex-wrap: wrap; padding: 12px 18px; border-radius: 18px; background: var(--warn-bg); color: var(--warn); font-weight: 500; }
+.callout.bad { background: var(--danger-bg); color: var(--danger); }
+.callout .link { color: inherit; font-weight: 700; }
+
+/* find */
+.find { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.field { height: 44px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--surface); width: 100%; font-size: 16px; }
+.field::placeholder { color: var(--muted); opacity: 0.85; }
+.search { flex: 1 1 240px; min-width: 0; border-radius: 999px; padding-inline: 20px; }
+.sortwrap { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 15px; }
+.sortwrap .field { width: auto; min-width: 190px; border-radius: 999px; padding-inline: 16px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tab { border: 0; border-radius: 999px; padding: 7px 16px; background: var(--surface); color: var(--muted); font-weight: 500; box-shadow: inset 0 0 0 1px var(--line); }
+.tab:hover { color: var(--fg); }
+.tab[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); font-weight: 700; box-shadow: none; }
+
+/* cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(270px, 100%), 1fr)); gap: 24px; }
+.card { background: var(--surface); border-radius: 28px; padding: 14px 14px 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.pic { display: block; aspect-ratio: 1 / 1; border-radius: 22px; overflow: hidden; background: var(--tint); line-height: 0; }
+.pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pic.ph { display: flex; align-items: center; justify-content: center; font: 800 76px/1 var(--font); color: var(--accent); }
+.titlerow { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-inline: 4px; }
+.cname { margin: 0; font: 700 22px/1.2 var(--font); letter-spacing: -0.01em; overflow-wrap: anywhere; min-width: 0; }
+.price { flex: none; background: var(--accent); color: var(--accent-fg); font-weight: 700; font-size: 17px; padding: 3px 14px; border-radius: 999px; font-variant-numeric: tabular-nums; }
+.cdesc { margin: 0; padding-inline: 4px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; padding-inline: 4px; }
+.tag { background: var(--tag); color: var(--tag-fg); font-size: 13px; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
+.tag.expired { background: var(--exp-bg); color: var(--exp-fg); }
+.tag.soon { background: var(--soon-bg); color: var(--soon-fg); }
+.tag.none { background: var(--none-bg); color: var(--none-fg); }
+.stockbar { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 54px; padding: 0 8px; border-radius: 999px; background: var(--bar); color: var(--bar-fg); font-weight: 800; font-size: 19px; }
+.stockbar.static { justify-content: center; }
+.stockbar output { font-variant-numeric: tabular-nums; text-align: center; }
+.stockbar button { width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--bar-btn); color: var(--bar-btn-fg); font-size: 22px; font-weight: 700; line-height: 1; padding: 0; flex: none; }
+.stockbar button:hover { box-shadow: 0 0 0 2px var(--accent); }
+.stockbar button:focus-visible { outline-color: var(--accent); }
+.cactions { display: flex; justify-content: center; gap: 22px; }
+
+.empty { padding: 36px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.empty h2 { margin: 0; font: 800 24px/1.2 var(--font); letter-spacing: -0.01em; }
+.empty p { margin: 0 0 8px; color: var(--muted); max-width: 52ch; }
+
+/* sheets */
+.scrim { position: fixed; inset: 0; height: 100vh; height: 100dvh; background: var(--scrim); display: flex; justify-content: flex-end; z-index: 20; }
+.sheet { width: min(460px, 100%); height: 100%; overflow: hidden; background: var(--surface); border-radius: 30px 0 0 30px; display: flex; flex-direction: column; }
+.sheet-body { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 8px 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+.sheet-foot { display: flex; flex-direction: column; gap: 8px; padding: 12px 24px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(20px + env(safe-area-inset-top, 0px)) 24px 8px; }
+.sheet h2 { margin: 0; font: 800 24px/1.2 var(--font); letter-spacing: -0.01em; }
+.x { width: 38px; height: 38px; border: 0; border-radius: 50%; background: transparent; color: var(--muted); font-size: 26px; line-height: 1; }
+.x:hover { background: var(--hover); color: var(--fg); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid > * { min-width: 0; }
+.grid .field { min-width: 0; max-width: 100%; }
+.span2 { grid-column: 1 / -1; }
+label.lbl, .lbl-box { display: grid; gap: 6px; font-weight: 700; font-size: 15px; align-content: start; }
+label.lbl .field { background: var(--field); border-color: transparent; }
+label.lbl .field:focus-visible { border-color: var(--accent); }
+.hint { font-weight: 400; color: var(--muted); font-size: 14px; }
+.readout output { height: 44px; display: flex; align-items: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.readout output.neg { color: var(--danger); }
+.photo-row { display: flex; gap: 14px; align-items: center; }
+.photo-preview { width: 92px; height: 92px; border-radius: 18px; background: var(--tint); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 13px; font-weight: 400; color: var(--muted); overflow: hidden; flex: none; }
+.photo-preview span { padding: 4px; }
+.photo-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-btns { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+input.sr:focus-visible + label.btn { outline: 2px solid var(--accent); outline-offset: 2px; }
+.err { margin: 0; color: var(--danger); font-size: 15px; font-weight: 500; }
+.field[aria-invalid="true"], label.lbl .field[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px var(--danger-bg); }
+.card.flash { outline: 3px solid var(--accent); outline-offset: 5px; }
+.fab { display: none; position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 10; height: 54px; padding: 0 24px; font-size: 17px; box-shadow: var(--shadow-lift); }
+.actions-row { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 11px 20px; border-radius: 999px; font-size: 15px; font-weight: 500; z-index: 30; max-width: calc(100% - 32px); }
+
+@media (max-width: 460px) {
+  .grid { grid-template-columns: 1fr; }
+  .span2 { grid-column: auto; }
+}
+@media (max-width: 600px) {
+  .fab:not([hidden]) { display: inline-flex; }
+  .add-top { display: none; }
+  .toast { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
+  .page { padding-bottom: 120px; }
+  h1 { font-size: 30px; }
+  .sheet { border-radius: 0; }
+  .cards { gap: 20px; }
+  .sortwrap { width: 100%; }
+  .sortwrap .field { flex: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: transform 0.22s ease, box-shadow 0.22s ease; }
+  .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); }
+  .sheet { animation: slide 0.18s ease-out; }
+  @keyframes slide { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1 id="shopName">Madam Thai</h1>
+      <p class="sub"><span id="todayText"></span> &middot; <span id="status">Connecting&hellip;</span></p>
+    </div>
+    <div class="head-right">
+      <div class="theme" role="group" aria-label="Day or night view">
+        <button type="button" data-theme-set="light" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Day</button>
+        <button type="button" data-theme-set="dark" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Night</button>
+      </div>
+      <div class="head-actions" id="headActions"></div>
+    </div>
+  </header>
+
+  <p class="banner" id="demoNote" hidden>You&rsquo;re looking at demo data that only lives in this browser. Add your Supabase details at the top of the script to connect the real database.</p>
+  <p class="banner" id="viewNote" hidden>This is the live stock list. Only signed-in staff can change it.</p>
+
+  <p class="summary" id="summary" hidden></p>
+  <div class="callout" id="callout" hidden></div>
+
+  <div class="find">
+    <input class="field search" id="q" type="search" placeholder="Search by product name" aria-label="Search by product name" autocomplete="off">
+    <label class="sortwrap" for="sort">Sort
+      <select class="field" id="sort">
+        <option value="expiry">Expiring first</option>
+        <option value="name">Name, A to Z</option>
+        <option value="recent">Newest stock first</option>
+        <option value="stock">Least stock first</option>
+        <option value="margin">Best margin first</option>
+      </select>
+    </label>
+  </div>
+  <div class="tabs" id="tabs" role="group" aria-label="Show"></div>
+
+  <div class="cards" id="cards" hidden></div>
+  <div class="empty" id="empty">
+    <h2>Loading the stock list</h2>
+    <p>Just a moment.</p>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <form class="sheet" id="form" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" novalidate>
+    <div class="sheet-head">
+      <h2 id="sheetTitle">Add a product</h2>
+      <button class="x" type="button" data-act="close" aria-label="Close">&times;</button>
+    </div>
+    <div class="sheet-body">
+    <div class="grid">
+      <label class="lbl span2" for="f-name">Product name
+        <input class="field" id="f-name" maxlength="80" autocomplete="off" placeholder="Red curry paste 400g">
+      </label>
+      <div class="lbl-box span2">
+        <span>Photo</span>
+        <div class="photo-row">
+          <div class="photo-preview" id="photoPreview"><span>No photo yet</span></div>
+          <div class="photo-btns">
+            <input class="sr" type="file" id="f-photo" accept="image/*,.jpg,.jpeg,.png,.webp">
+            <label class="btn" for="f-photo" id="photoBtn">Add a photo</label>
+            <button class="link quiet" type="button" id="photoRemove" hidden>Remove photo</button>
+          </div>
+        </div>
+      </div>
+      <label class="lbl" for="f-stocked">Came in on
+        <input class="field" id="f-stocked" type="date">
+      </label>
+      <label class="lbl" for="f-expiry">Expires on
+        <input class="field" id="f-expiry" type="date">
+        <span class="hint">Leave empty if it doesn&rsquo;t expire</span>
+      </label>
+      <label class="lbl" for="f-qty">How many in stock
+        <input class="field" id="f-qty" type="number" inputmode="numeric" min="0" step="1" placeholder="0">
+      </label>
+      <label class="lbl" for="f-buy"><span>Bought at (<span class="cur"></span> each)</span>
+        <input class="field" id="f-buy" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00">
+      </label>
+      <label class="lbl" for="f-sell"><span>Sells at (<span class="cur"></span> each)</span>
+        <input class="field" id="f-sell" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00">
+      </label>
+      <div class="lbl-box readout">Profit each
+        <output id="f-margin" for="f-buy f-sell">&ndash;</output>
+      </div>
+    </div>
+    </div>
+    <div class="sheet-foot">
+      <p class="err" id="formErr" role="alert"></p>
+      <div class="actions-row">
+        <button class="btn" type="button" data-act="close">Cancel</button>
+        <button class="btn primary" type="submit" id="saveBtn">Add product</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="scrim" id="loginScrim" hidden>
+  <form class="sheet" id="loginForm" role="dialog" aria-modal="true" aria-labelledby="loginTitle" novalidate>
+    <div class="sheet-head">
+      <h2 id="loginTitle">Staff sign in</h2>
+      <button class="x" type="button" data-act="close" aria-label="Close">&times;</button>
+    </div>
+    <div class="sheet-body">
+    <p class="hint" style="margin:0">Sign in to add products and change stock. Anyone can look at the list without signing in.</p>
+    <label class="lbl" for="l-email">Email
+      <input class="field" id="l-email" type="email" autocomplete="username" inputmode="email">
+    </label>
+    <label class="lbl" for="l-pass">Password
+      <input class="field" id="l-pass" type="password" autocomplete="current-password">
+    </label>
+    </div>
+    <div class="sheet-foot">
+      <p class="err" id="loginErr" role="alert"></p>
+      <div class="actions-row">
+        <button class="btn" type="button" data-act="close">Cancel</button>
+        <button class="btn primary" type="submit" id="loginBtn">Sign in</button>
+      </div>
+    </div>
+  </form>
+</div>
+<button class="btn primary fab" type="button" data-act="add" id="fab" hidden>+ Add a product</button>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ================================================================
+     SETTINGS. Fill these in, then you're live.
+     Supabase dashboard -> Project Settings -> API
+     The anon key is meant to be public. Never paste the service_role key here.
+     Leave the two Supabase lines empty to try the page in demo mode.
+     ================================================================ */
+  var CONFIG = {
+    shopName: 'Madam Thai',
+    supabaseUrl: 'https://krkpkzbgwodnfpkszdyx.supabase.co',          // e.g. https://abcdxyz.supabase.co
+    supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtya3BremJnd29kbmZwa3N6ZHl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2OTAyNjYsImV4cCI6MjEwNzI2NjI2Nn0.TM4rfCCd8BkX7anNNNnbpPu1d9uy_y-uqg9wrA-gL7M',      // the "anon public" key
+    currency: 'INR',
+    lowStockAt: 10,           // this many or fewer counts as running low
+    bucket: 'product-images'
+  };
+
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  var money0 = new Intl.NumberFormat('en-IN', { style: 'currency', currency: CONFIG.currency, maximumFractionDigits: 0 });
+  var money2 = new Intl.NumberFormat('en-IN', { style: 'currency', currency: CONFIG.currency, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var numFmt = new Intl.NumberFormat('en-IN');
+  var dateFmt = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  var longFmt = new Intl.DateTimeFormat('en-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+  function price(n) { n = +n || 0; return Number.isInteger(n) ? money0.format(n) : money2.format(n); }
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function parse(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || '');
+    return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+  }
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  function daysUntil(d) { return Math.round((d - today) / 86400000); }
+  function fmtDate(s) { var d = parse(s); return d ? dateFmt.format(d) : ''; }
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+  /* ---------- day / night ---------- */
+  var THEME_KEY = 'stockroom-theme';
+  var themeChosen = false;
+  function systemDark() { return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); }
+  function paintTheme() {
+    var attr = document.documentElement.getAttribute('data-theme');
+    var eff = attr === 'dark' || attr === 'light' ? attr : (systemDark() ? 'dark' : 'light');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-theme-set]'), function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.themeSet === eff));
+    });
+  }
+  function setTheme(t) {
+    themeChosen = true;
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+    paintTheme();
+  }
+  try {
+    var savedTheme = localStorage.getItem(THEME_KEY);
+    themeChosen = savedTheme === 'light' || savedTheme === 'dark';
+  } catch (e) {}
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var onMq = function () { if (!themeChosen) paintTheme(); };
+    if (mq.addEventListener) mq.addEventListener('change', onMq); else if (mq.addListener) mq.addListener(onMq);
+  }
+
+  /* ---------- reading and shrinking photos ---------- */
+  function blobToDataUrl(blob) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(r.result); };
+      r.onerror = function () { reject(r.error || new Error('read')); };
+      r.readAsDataURL(blob);
+    });
+  }
+  function dataUrlToBlob(url) {
+    var parts = url.split(',');
+    var mime = (/data:([^;]+)/.exec(parts[0]) || [])[1] || 'image/jpeg';
+    var bin = atob(parts[1]);
+    var arr = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return new Blob([arr], { type: mime });
+  }
+  function imgFrom(url, revoke) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.onload = function () { if (revoke) URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = function () { if (revoke) URL.revokeObjectURL(url); reject(new Error('decode')); };
+      img.src = url;
+    });
+  }
+  /* Try three ways to open the file, because phones and browsers differ. */
+  async function openImage(file) {
+    if (window.createImageBitmap) {
+      try { return await createImageBitmap(file); } catch (e) {}
+    }
+    try { return await imgFrom(URL.createObjectURL(file), true); } catch (e) {}
+    return imgFrom(await blobToDataUrl(file), false);
+  }
+  async function compress(file, maxSide) {
+    var src = await openImage(file);
+    var w = src.naturalWidth || src.width, h = src.naturalHeight || src.height;
+    if (!w || !h) throw new Error('size');
+    var k = Math.min(1, maxSide / Math.max(w, h));
+    var c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(w * k));
+    c.height = Math.max(1, Math.round(h * k));
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(src, 0, 0, c.width, c.height);
+    if (src.close) src.close();
+    var blob = await new Promise(function (resolve) {
+      try { c.toBlob(resolve, 'image/jpeg', 0.82); } catch (e) { resolve(null); }
+    });
+    if (!blob) blob = dataUrlToBlob(c.toDataURL('image/jpeg', 0.82));
+    return blob;
+  }
+
+  /* ================================================================
+     Data layer. Same calls whether it's Supabase or the demo.
+     ================================================================ */
+  function makeLive() {
+    var sb = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey);
+    var bucket = sb.storage.from(CONFIG.bucket);
+    function ok(r) { if (r.error) throw r.error; return r.data; }
+    return {
+      live: true,
+      maxImageSide: 900,
+      list: async function () { return ok(await sb.from('products').select('*')); },
+      insert: async function (row) { return ok(await sb.from('products').insert(row).select().single()); },
+      update: async function (id, row) { return ok(await sb.from('products').update(row).eq('id', id).select().single()); },
+      remove: async function (id) { ok(await sb.from('products').delete().eq('id', id)); },
+      uploadImage: async function (blob) {
+        var path = 'p/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.jpg';
+        ok(await bucket.upload(path, blob, { contentType: 'image/jpeg', cacheControl: '31536000' }));
+        return path;
+      },
+      removeImage: async function (path) { if (path) await bucket.remove([path]); },
+      imageUrl: function (path) { return path ? bucket.getPublicUrl(path).data.publicUrl : ''; },
+      subscribe: function (onChange, onStatus) {
+        sb.channel('products-live')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, onChange)
+          .subscribe(function (s) { onStatus(s === 'SUBSCRIBED'); });
+      },
+      getUser: async function () {
+        var r = await sb.auth.getSession();
+        return r.data.session ? r.data.session.user : null;
+      },
+      onAuth: function (cb) { sb.auth.onAuthStateChange(function (_e, session) { cb(session ? session.user : null); }); },
+      signIn: async function (email, password) { ok(await sb.auth.signInWithPassword({ email: email, password: password })); },
+      signOut: async function () { await sb.auth.signOut(); }
+    };
+  }
+
+  function makeDemo() {
+    var KEY = 'madam-thai-demo-v3';
+    function day(n) { var d = new Date(today); d.setDate(d.getDate() + n); return iso(d); }
+    function seed() {
+      return [
+        { id: 'd1', name: 'Thai Basil Bunch', stocked_on: day(-1), expires_on: day(2), quantity: 14, buying_price: 28, selling_price: 40 },
+        { id: 'd2', name: 'Fresh Lemongrass 250g', stocked_on: day(-2), expires_on: day(5), quantity: 9, buying_price: 45, selling_price: 70 },
+        { id: 'd3', name: 'Galangal Root 200g', stocked_on: day(-9), expires_on: day(-2), quantity: 4, buying_price: 60, selling_price: 95 },
+        { id: 'd4', name: 'Red Curry Paste 400g', stocked_on: day(-20), expires_on: day(120), quantity: 26, buying_price: 165, selling_price: 240 },
+        { id: 'd5', name: 'Coconut Milk 400ml', stocked_on: day(-30), expires_on: day(210), quantity: 60, buying_price: 72, selling_price: 99 },
+        { id: 'd6', name: 'Jasmine Rice 5kg', stocked_on: day(-40), expires_on: day(300), quantity: 18, buying_price: 420, selling_price: 560 },
+        { id: 'd7', name: 'Fish Sauce 700ml', stocked_on: day(-50), expires_on: day(420), quantity: 7, buying_price: 130, selling_price: 185.5 },
+        { id: 'd8', name: 'Rice Noodles 400g', stocked_on: day(-14), expires_on: day(180), quantity: 33, buying_price: 58, selling_price: 82 }
+      ];
+    }
+    var data;
+    try { var raw = localStorage.getItem(KEY); data = raw ? JSON.parse(raw) : null; } catch (e) { data = null; }
+    if (!data) data = seed();
+    function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} }
+    return {
+      live: false,
+      maxImageSide: 520,
+      list: async function () { return data.slice(); },
+      insert: async function (row) {
+        var r = Object.assign({ id: 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5) }, row);
+        data.push(r); save(); return r;
+      },
+      update: async function (id, row) {
+        var i = data.findIndex(function (x) { return x.id === id; });
+        data[i] = Object.assign({}, data[i], row); save(); return data[i];
+      },
+      remove: async function (id) { data = data.filter(function (x) { return x.id !== id; }); save(); },
+      uploadImage: async function (blob) { return blobToDataUrl(blob); },
+      removeImage: async function () {},
+      imageUrl: function (p) { return p || ''; },
+      subscribe: function () {},
+      getUser: async function () { return { email: 'demo' }; },
+      onAuth: function () {},
+      signIn: async function () {},
+      signOut: async function () {}
+    };
+  }
+
+  var wantsLive = !!(CONFIG.supabaseUrl && CONFIG.supabaseAnonKey && window.supabase);
+  var api = wantsLive ? makeLive() : makeDemo();
+
+  /* ---------- state ---------- */
+  var items = [];
+  var loaded = false;
+  var loadError = '';
+  var user = null;
+  var connected = false;
+  var lastStamp = '';
+  var pending = new Map();      // product id -> stock count not saved yet
+  var timers = new Map();
+  var inflight = new Set();
+  var state = { filter: 'all', q: '', sort: 'expiry', confirmId: null, editingId: null, flashId: null };
+  var focusKey = null;
+  var lastFocus = null;
+  var photo = { blob: null, objUrl: null, existing: null, removed: false };
+
+  function canEdit() { return !api.live || !!user; }
+
+  /* ---------- helpers on a product ---------- */
+  function expiryInfo(it) {
+    var d = parse(it.expires_on);
+    if (!d) return { kind: 'none', label: 'Doesn’t expire' };
+    var n = daysUntil(d);
+    if (n < 0) return { kind: 'expired', label: 'Expired ' + (n === -1 ? 'yesterday' : (-n) + ' days ago') };
+    if (n === 0) return { kind: 'soon', label: 'Expires today' };
+    if (n <= 7) return { kind: 'soon', label: n === 1 ? 'Expires tomorrow' : plural(n, 'day', 'days') + ' left' };
+    if (n <= 30) return { kind: 'watch', label: n + ' days left' };
+    if (n <= 90) return { kind: 'ok', label: n + ' days left' };
+    return { kind: 'ok', label: Math.round(n / 30) + ' months left' };
+  }
+  function profitEach(it) { return (+it.selling_price || 0) - (+it.buying_price || 0); }
+  function profitPct(it) { var s = +it.selling_price || 0; return s > 0 ? profitEach(it) / s * 100 : 0; }
+  function view() {
+    return items.map(function (it) {
+      return pending.has(it.id) ? Object.assign({}, it, { quantity: pending.get(it.id) }) : it;
+    });
+  }
+  function upsert(row) {
+    var i = items.findIndex(function (x) { return x.id === row.id; });
+    if (i >= 0) items[i] = row; else items.push(row);
+  }
+
+  /* ---------- loading and live updates ---------- */
+  function stamp() {
+    lastStamp = new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' });
+    paintStatus();
+  }
+  function paintStatus() {
+    var t;
+    if (!api.live) t = 'Demo data, saved in this browser only';
+    else if (loadError) t = 'Can’t reach the database';
+    else if (!loaded) t = 'Connecting…';
+    else if (connected) t = 'Live, last updated ' + lastStamp;
+    else t = 'Reconnecting… last updated ' + lastStamp;
+    $('#status').textContent = t;
+  }
+  async function refresh() {
+    try {
+      items = await api.list();
+      loadError = '';
+      loaded = true;
+      stamp();
+    } catch (e) {
+      loadError = (e && e.message) ? e.message : 'Unknown error';
+      if (!loaded) loaded = true;
+      paintStatus();
+    }
+    render();
+  }
+  function onChange(p) {
+    if (p.eventType === 'DELETE') items = items.filter(function (x) { return x.id !== p.old.id; });
+    else if (p.new) upsert(p.new);
+    stamp();
+    render();
+  }
+
+  /* ---------- rendering ---------- */
+  function passes(it, f) {
+    if (f === 'all') return true;
+    var e = expiryInfo(it);
+    if (f === 'expiring') return e.kind === 'soon' || e.kind === 'watch';
+    if (f === 'expired') return e.kind === 'expired';
+    if (f === 'low') return (+it.quantity || 0) <= CONFIG.lowStockAt;
+    return true;
+  }
+  var sorters = {
+    expiry: function (a, b) { return (a.expires_on || '9999-12-31').localeCompare(b.expires_on || '9999-12-31') || a.name.localeCompare(b.name); },
+    name: function (a, b) { return a.name.localeCompare(b.name); },
+    recent: function (a, b) { return (b.stocked_on || '').localeCompare(a.stocked_on || '') || a.name.localeCompare(b.name); },
+    stock: function (a, b) { return (+a.quantity || 0) - (+b.quantity || 0) || a.name.localeCompare(b.name); },
+    margin: function (a, b) { return profitPct(b) - profitPct(a) || a.name.localeCompare(b.name); }
+  };
+
+  function renderHeader() {
+    var h = '';
+    if (api.live) {
+      if (user) {
+        h += '<span class="who">' + esc(user.email) + '</span>' +
+          '<button class="link quiet" type="button" data-act="logout">Sign out</button>' +
+          '<button class="btn primary add-top" type="button" data-act="add">Add a product</button>';
+      } else {
+        h += '<button class="btn" type="button" data-act="login">Staff sign in</button>';
+      }
+    } else {
+      h += '<button class="btn primary add-top" type="button" data-act="add">Add a product</button>';
+    }
+    $('#headActions').innerHTML = h;
+    $('#fab').hidden = !canEdit();
+    $('#demoNote').hidden = api.live;
+    $('#viewNote').hidden = !api.live || !!user;
+  }
+
+  function renderSummary(all) {
+    var units = 0, cost = 0, retail = 0, expired = 0, soon = 0;
+    all.forEach(function (it) {
+      var q = +it.quantity || 0;
+      units += q;
+      cost += q * (+it.buying_price || 0);
+      retail += q * (+it.selling_price || 0);
+      if (q > 0) {
+        var e = expiryInfo(it);
+        if (e.kind === 'expired') expired++; else if (e.kind === 'soon') soon++;
+      }
+    });
+    var s = $('#summary'), c = $('#callout');
+    if (!all.length) { s.hidden = true; c.hidden = true; return; }
+    s.hidden = false;
+    s.innerHTML = 'You have <strong>' + plural(all.length, 'product', 'products') + '</strong> and <strong>' +
+      numFmt.format(units) + '</strong> ' + (units === 1 ? 'unit' : 'units') + ' on the shelf. They cost <strong>' + money0.format(cost) +
+      '</strong> and will bring in <strong>' + money0.format(retail) + '</strong> when sold, about <strong>' +
+      money0.format(retail - cost) + '</strong> profit.';
+    if (expired || soon) {
+      var parts = [];
+      if (expired) parts.push(expired + ' expired');
+      if (soon) parts.push(soon + ' expiring this week');
+      c.className = 'callout' + (expired ? ' bad' : '');
+      c.innerHTML = '<span>' + esc(parts.join(' and ')) + '.</span><button type="button" class="link" data-filter="' + (expired ? 'expired' : 'expiring') + '">Show them</button>';
+      c.hidden = false;
+    } else c.hidden = true;
+  }
+
+  function renderTabs(all) {
+    var defs = [['all', 'Everything'], ['expiring', 'Expiring soon'], ['expired', 'Expired'], ['low', 'Running low']];
+    $('#tabs').innerHTML = defs.map(function (d) {
+      var n = all.filter(function (it) { return passes(it, d[0]); }).length;
+      return '<button type="button" class="tab" data-filter="' + d[0] + '" aria-pressed="' + (state.filter === d[0]) + '">' + esc(d[1]) + ' (' + n + ')</button>';
+    }).join('');
+  }
+
+  function picHtml(it) {
+    var url = api.imageUrl(it.image_path);
+    if (url) return '<a class="pic" href="' + esc(url) + '" target="_blank" rel="noopener" aria-label="Open the photo of ' + esc(it.name) + '"><img src="' + esc(url) + '" alt="' + esc(it.name) + '" loading="lazy"></a>';
+    return '<div class="pic ph" aria-hidden="true">' + esc((it.name || '?').trim().charAt(0).toUpperCase()) + '</div>';
+  }
+  function describe(it) {
+    var m = profitEach(it), pct = Math.round(Math.abs(profitPct(it)));
+    var s = 'Came in ' + fmtDate(it.stocked_on) + (it.expires_on ? ' and expires on ' + fmtDate(it.expires_on) + '.' : ', and it doesn’t expire.');
+    s += ' Bought at ' + price(it.buying_price) + ', sells at ' + price(it.selling_price);
+    if (m > 0) s += ', so you make ' + price(m) + ' on each (' + pct + '%).';
+    else if (m < 0) s += ', so you lose ' + price(-m) + ' on each.';
+    else s += ', so there’s no profit on each one.';
+    return s;
+  }
+
+  function cardHtml(it, editable) {
+    var e = expiryInfo(it);
+    var q = +it.quantity || 0;
+    var nm = esc(it.name), id = esc(it.id);
+    var tags = '<span class="tag ' + (e.kind === 'expired' || e.kind === 'soon' || e.kind === 'none' ? e.kind : '') + '">' + esc(e.label) + '</span>';
+    if (q === 0) tags += '<span class="tag expired">Out of stock</span>';
+    else if (q <= CONFIG.lowStockAt) tags += '<span class="tag soon">Running low</span>';
+    var bar = editable
+      ? '<div class="stockbar" role="group" aria-label="Stock for ' + nm + '">' +
+        '<button type="button" data-act="dec" aria-label="Take one away from ' + nm + '">&minus;</button>' +
+        '<output>' + numFmt.format(q) + ' in stock</output>' +
+        '<button type="button" data-act="inc" aria-label="Add one to ' + nm + '">+</button></div>'
+      : '<div class="stockbar static"><output>' + numFmt.format(q) + ' in stock</output></div>';
+    var confirming = state.confirmId === it.id;
+    var actions = editable
+      ? '<div class="cactions"><button type="button" class="link" data-act="edit">Edit</button>' +
+        '<button type="button" class="link quiet danger' + (confirming ? ' confirm' : '') + '" data-act="del">' + (confirming ? 'Tap again to delete' : 'Delete') + '</button></div>'
+      : '';
+    return '<article class="card' + (state.flashId === it.id ? ' flash' : '') + '" data-id="' + id + '">' + picHtml(it) +
+      '<div class="titlerow"><h2 class="cname">' + nm + '</h2><span class="price">' + esc(price(it.selling_price)) + '</span></div>' +
+      '<p class="cdesc">' + esc(describe(it)) + '</p>' +
+      '<div class="tags">' + tags + '</div>' + bar + actions + '</article>';
+  }
+
+  function render() {
+    renderHeader();
+    var all = view();
+    renderSummary(all);
+    renderTabs(all);
+
+    var cards = $('#cards'), empty = $('#empty');
+    if (!loaded) {
+      cards.hidden = true; empty.hidden = false;
+      empty.innerHTML = '<h2>Loading the stock list</h2><p>Just a moment.</p>';
+      return;
+    }
+    if (loadError && !all.length) {
+      cards.hidden = true; empty.hidden = false;
+      empty.innerHTML = '<h2>Couldn’t load the stock list</h2><p>' + esc(loadError) + '</p><button type="button" class="btn" data-act="retry">Try again</button>';
+      return;
+    }
+    var list = all.filter(function (it) {
+      if (state.q && it.name.toLowerCase().indexOf(state.q.toLowerCase()) === -1) return false;
+      return passes(it, state.filter);
+    }).sort(sorters[state.sort] || sorters.expiry);
+
+    if (!all.length) {
+      cards.hidden = true; empty.hidden = false;
+      empty.innerHTML = canEdit()
+        ? '<h2>Nothing here yet</h2><p>Add your first product and it will show up here for everyone.</p><button type="button" class="btn primary" data-act="add">Add a product</button>'
+        : '<h2>Nothing here yet</h2><p>No products have been added so far.</p>';
+    } else if (!list.length) {
+      cards.hidden = true; empty.hidden = false;
+      empty.innerHTML = '<h2>No matches</h2><p>Nothing fits that search and filter.</p><button type="button" class="btn" data-act="clear">Clear them</button>';
+    } else {
+      empty.hidden = true; cards.hidden = false;
+      var editable = canEdit();
+      cards.innerHTML = list.map(function (it) { return cardHtml(it, editable); }).join('');
+    }
+    if (focusKey) {
+      var parts = focusKey.split('|');
+      var els = document.querySelectorAll('#cards .card');
+      for (var i = 0; i < els.length; i++) {
+        if (els[i].dataset.id === parts[0]) {
+          var b = els[i].querySelector('[data-act="' + parts[1] + '"]');
+          if (b) b.focus();
+          break;
+        }
+      }
+      focusKey = null;
+    }
+  }
+
+  /* After adding or editing, make sure the card can be seen: clear a filter that hides it, scroll to it, outline it for a moment. */
+  function matchesView(it) {
+    if (state.q && it.name.toLowerCase().indexOf(state.q.toLowerCase()) === -1) return false;
+    return passes(it, state.filter);
+  }
+  function showItem(id) {
+    var it = view().find(function (x) { return x.id === id; });
+    if (it && !matchesView(it)) { state.filter = 'all'; state.q = ''; $('#q').value = ''; }
+    state.flashId = id;
+    render();
+    setTimeout(function () {
+      var els = document.querySelectorAll('#cards .card');
+      var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      for (var i = 0; i < els.length; i++) {
+        if (els[i].dataset.id === id) { els[i].scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' }); break; }
+      }
+    }, 80);
+    setTimeout(function () { if (state.flashId === id) { state.flashId = null; render(); } }, 2800);
+  }
+
+  /* ---------- quick stock changes ---------- */
+  function adjustQty(id, delta) {
+    var it = view().find(function (x) { return x.id === id; });
+    if (!it) return;
+    var cur = +it.quantity || 0;
+    var next = Math.max(0, cur + delta);
+    if (next === cur) return;
+    pending.set(id, next);
+    render();
+    clearTimeout(timers.get(id));
+    timers.set(id, setTimeout(function () { flushQty(id); }, 450));
+  }
+  async function flushQty(id) {
+    if (inflight.has(id)) { timers.set(id, setTimeout(function () { flushQty(id); }, 300)); return; }
+    var q = pending.get(id);
+    if (q === undefined) return;
+    inflight.add(id);
+    try {
+      var saved = await api.update(id, { quantity: q });
+      upsert(saved);
+    } catch (e) {
+      toast('Couldn’t save that change. Check you’re signed in and online.');
+      pending.delete(id);
+    }
+    inflight.delete(id);
+    if (pending.get(id) === q) pending.delete(id);
+    render();
+  }
+
+  async function removeItem(id) {
+    var it = items.find(function (x) { return x.id === id; });
+    try {
+      await api.remove(id);
+      items = items.filter(function (x) { return x.id !== id; });
+      if (it && it.image_path) api.removeImage(it.image_path).catch(function () {});
+      toast('Product deleted');
+    } catch (e) { toast('Couldn’t delete it. Check you’re signed in and online.'); }
+    state.confirmId = null;
+    render();
+  }
+
+  /* ---------- forms ---------- */
+  function openSheet(scrim, focusId) {
+    lastFocus = document.activeElement;
+    $(scrim).hidden = false;
+    setTimeout(function () { $(focusId).focus(); }, 30);
+  }
+  function closeSheets() {
+    $('#scrim').hidden = true;
+    $('#loginScrim').hidden = true;
+    clearPhotoUrl();
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
+  }
+  function clearPhotoUrl() { if (photo.objUrl) { URL.revokeObjectURL(photo.objUrl); photo.objUrl = null; } }
+
+  function paintPhoto() {
+    var src = photo.objUrl || (!photo.removed && photo.existing ? api.imageUrl(photo.existing) : '');
+    $('#photoPreview').innerHTML = src ? '<img alt="Preview of the photo" src="' + esc(src) + '">' : '<span>No photo yet</span>';
+    $('#photoRemove').hidden = !src;
+    $('#photoBtn').textContent = src ? 'Change photo' : 'Add a photo';
+  }
+  function updateMargin() {
+    var b = parseFloat($('#f-buy').value), s = parseFloat($('#f-sell').value);
+    var out = $('#f-margin');
+    if (isNaN(b) || isNaN(s)) { out.textContent = '–'; out.className = ''; return; }
+    var m = s - b, pct = s > 0 ? m / s * 100 : 0;
+    out.textContent = money2.format(m) + ' (' + pct.toFixed(0) + '%)';
+    out.className = m < 0 ? 'neg' : '';
+  }
+  function openForm(item) {
+    if (!canEdit()) return;
+    state.editingId = item ? item.id : null;
+    $('#sheetTitle').textContent = item ? 'Edit product' : 'Add a product';
+    $('#saveBtn').textContent = item ? 'Save changes' : 'Add product';
+    $('#f-name').value = item ? item.name : '';
+    $('#f-stocked').value = item ? (item.stocked_on || '') : iso(today);
+    $('#f-expiry').value = item ? (item.expires_on || '') : '';
+    $('#f-qty').value = item ? item.quantity : '';
+    $('#f-buy').value = item ? item.buying_price : '';
+    $('#f-sell').value = item ? item.selling_price : '';
+    $('#formErr').textContent = '';
+    $('#saveBtn').disabled = false;
+    Array.prototype.forEach.call(document.querySelectorAll('#form [aria-invalid]'), function (el) { el.removeAttribute('aria-invalid'); });
+    clearPhotoUrl();
+    photo = { blob: null, objUrl: null, existing: item && item.image_path ? item.image_path : null, removed: false };
+    paintPhoto();
+    updateMargin();
+    openSheet('#scrim', '#f-name');
+  }
+  function validate(f) {
+    function bad(msg, id) { return { msg: msg, id: id }; }
+    if (!f.name) return bad('Give the product a name.', 'f-name');
+    if (!parse(f.stocked)) return bad('Pick the date this stock came in.', 'f-stocked');
+    if (f.expiry && !parse(f.expiry)) return bad('That expiry date doesn\u2019t look right.', 'f-expiry');
+    if (f.expiry && f.expiry < f.stocked) return bad('The expiry date is before the day it came in.', 'f-expiry');
+    var q = Number(f.qty);
+    if (f.qty === '' || !Number.isInteger(q) || q < 0) return bad('How many in stock should be a whole number, 0 or more.', 'f-qty');
+    var b = Number(f.buy);
+    if (f.buy === '' || !isFinite(b) || b < 0) return bad('Enter what you bought it at, per unit.', 'f-buy');
+    var s = Number(f.sell);
+    if (f.sell === '' || !isFinite(s) || s < 0) return bad('Enter what it sells at, per unit.', 'f-sell');
+    return null;
+  }
+
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $('#toast');
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.hidden = true; }, 2800);
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener('click', function (e) {
+    var th = e.target.closest('[data-theme-set]');
+    if (th) { setTheme(th.dataset.themeSet); return; }
+    var tab = e.target.closest('[data-filter]');
+    if (tab) { state.filter = tab.dataset.filter; render(); return; }
+    var b = e.target.closest('[data-act]');
+    if (!b) return;
+    var act = b.dataset.act;
+    var card = b.closest('.card');
+    var id = card ? card.dataset.id : null;
+    if (act === 'add') openForm(null);
+    else if (act === 'close') closeSheets();
+    else if (act === 'login') { $('#loginErr').textContent = ''; $('#loginBtn').disabled = false; openSheet('#loginScrim', '#l-email'); }
+    else if (act === 'logout') { api.signOut().then(function () { user = null; render(); toast('Signed out'); }); }
+    else if (act === 'retry') { loaded = false; render(); refresh(); }
+    else if (act === 'clear') { state.q = ''; state.filter = 'all'; $('#q').value = ''; render(); }
+    else if (act === 'inc' && id) { focusKey = id + '|inc'; adjustQty(id, 1); }
+    else if (act === 'dec' && id) { focusKey = id + '|dec'; adjustQty(id, -1); }
+    else if (act === 'edit' && id) {
+      var it = view().find(function (x) { return x.id === id; });
+      if (it) openForm(it);
+    } else if (act === 'del' && id) {
+      if (state.confirmId === id) { removeItem(id); return; }
+      state.confirmId = id; focusKey = id + '|del'; render();
+      setTimeout(function () { if (state.confirmId === id) { state.confirmId = null; render(); } }, 3500);
+    }
+  });
+  ['#scrim', '#loginScrim'].forEach(function (s) {
+    $(s).addEventListener('mousedown', function (e) { if (e.target === $(s)) closeSheets(); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && (!$('#scrim').hidden || !$('#loginScrim').hidden)) closeSheets();
+  });
+  $('#q').addEventListener('input', function (e) { state.q = e.target.value.trim(); render(); });
+  $('#sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
+  $('#form').addEventListener('input', function (e) { if (e.target && e.target.removeAttribute) e.target.removeAttribute('aria-invalid'); });
+  $('#f-buy').addEventListener('input', updateMargin);
+  $('#f-sell').addEventListener('input', updateMargin);
+
+  $('#f-photo').addEventListener('change', async function (e) {
+    var input = e.target;
+    var file = input.files && input.files[0];
+    if (!file) return;
+    $('#formErr').textContent = '';
+    try {
+      var blob = await compress(file, api.maxImageSide);
+      clearPhotoUrl();
+      photo.blob = blob;
+      photo.objUrl = URL.createObjectURL(blob);
+      photo.removed = false;
+      paintPhoto();
+    } catch (err) {
+      var kind = file.type || (file.name.split('.').pop() || 'unknown');
+      $('#formErr').textContent = 'Couldn’t read that photo (' + kind + '). Try a different JPG, PNG or WebP.';
+    }
+    try { input.value = ''; } catch (x) {}
+  });
+  $('#photoRemove').addEventListener('click', function () {
+    clearPhotoUrl();
+    photo.blob = null;
+    photo.removed = !!photo.existing;
+    paintPhoto();
+  });
+
+  $('#form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!canEdit()) return;
+    var f = {
+      name: $('#f-name').value.trim(),
+      stocked: $('#f-stocked').value,
+      expiry: $('#f-expiry').value,
+      qty: $('#f-qty').value,
+      buy: $('#f-buy').value,
+      sell: $('#f-sell').value
+    };
+    var err = validate(f);
+    if (err) {
+      $('#formErr').textContent = err.msg;
+      var badField = $('#' + err.id);
+      badField.setAttribute('aria-invalid', 'true');
+      badField.focus();
+      return;
+    }
+    var editing = state.editingId;
+    var current = editing ? items.find(function (x) { return x.id === editing; }) : null;
+    var oldPath = current ? current.image_path : null;
+    var row = {
+      name: f.name,
+      stocked_on: f.stocked,
+      expires_on: f.expiry || null,
+      quantity: Number(f.qty),
+      buying_price: Number(f.buy),
+      selling_price: Number(f.sell)
+    };
+    var newPath = null;
+    $('#saveBtn').disabled = true;
+    $('#formErr').textContent = '';
+    try {
+      if (photo.blob) { newPath = await api.uploadImage(photo.blob); row.image_path = newPath; }
+      else if (photo.removed) row.image_path = null;
+      pending.delete(editing);
+      var saved = editing ? await api.update(editing, row) : await api.insert(row);
+      if (oldPath && (newPath || photo.removed)) api.removeImage(oldPath).catch(function () {});
+      var wasEditing = !!editing;
+      if (!saved || !saved.id) { await refresh(); closeSheets(); toast(wasEditing ? 'Changes saved' : 'Product added'); return; }
+      upsert(saved);
+      closeSheets();
+      showItem(saved.id);
+      toast((wasEditing ? 'Saved ' : 'Added ') + saved.name);
+    } catch (ex) {
+      if (newPath) api.removeImage(newPath).catch(function () {});
+      $('#saveBtn').disabled = false;
+      $('#formErr').textContent = 'Couldn’t save. Check you’re signed in and online, then try again.';
+    }
+  });
+
+  $('#loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var email = $('#l-email').value.trim(), pass = $('#l-pass').value;
+    if (!email || !pass) { $('#loginErr').textContent = 'Enter your email and password.'; return; }
+    $('#loginBtn').disabled = true;
+    $('#loginErr').textContent = '';
+    try {
+      await api.signIn(email, pass);
+      user = await api.getUser();
+      $('#l-pass').value = '';
+      closeSheets();
+      render();
+      toast('Signed in');
+    } catch (ex) {
+      $('#loginBtn').disabled = false;
+      $('#loginErr').textContent = 'That email and password didn’t work.';
+    }
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible' && api.live && loaded) refresh();
+  });
+
+  /* ---------- start ---------- */
+  document.title = CONFIG.shopName;
+  $('#shopName').textContent = CONFIG.shopName;
+  $('#todayText').textContent = longFmt.format(today);
+  var sym = (money2.formatToParts(0).find(function (p) { return p.type === 'currency'; }) || {}).value || '';
+  Array.prototype.forEach.call(document.querySelectorAll('.cur'), function (el) { el.textContent = sym; });
+  paintTheme();
+
+  render();
+  (async function start() {
+    try { user = await api.getUser(); } catch (e) { user = null; }
+    api.onAuth(function (u) { user = u; render(); });
+    await refresh();
+    api.subscribe(onChange, function (isUp) { connected = isUp; paintStatus(); });
+  })();
+})();
+</script>
+</body>
+</html>
